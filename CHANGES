@@ -1,3 +1,6 @@
+1.63
+    -- Use runtime TCP_CORK lookup with Socket::Const fallback instead of hard-coded value
+
 1.62
     -- Fixed rt21751: test hangs on MSWin32 (Andy Melnikov)
     -- Fixed rt34188: Tests use perlbal management port - so fail

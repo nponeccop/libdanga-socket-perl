@@ -133,7 +133,11 @@ use Errno  qw(EINPROGRESS EWOULDBLOCK EISCONN ENOTSOCK
 use Socket qw(IPPROTO_TCP);
 use Carp   qw(croak confess);
 
-use constant TCP_CORK => ($^O eq "linux" ? 3 : 0); # FIXME: not hard-coded (Linux-specific too)
+# try to discover TCP_CORK at runtime, falling back to old behavior
+use constant TCP_CORK =>
+    eval { Socket::TCP_CORK() }
+    || eval { require Socket::Const; Socket::Const::TCP_CORK() }
+    || ($^O eq 'linux' ? 3 : 0);
 use constant DebugLevel => 0;
 
 use constant POLLIN        => 1;
